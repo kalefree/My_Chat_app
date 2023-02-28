@@ -14,7 +14,8 @@
     </div>
 
     <script>
-        var socket = new WebSocket("ws://" + window.location.host + "/ws");
+        var client_id = "{{ client_id }}";
+        var socket = new WebSocket("ws://" + window.location.host + "/" + client_id);
         var chatForm = document.getElementById("chat-form");
         var chatInput = document.getElementById("chat-input");
         var chatMessages = document.getElementById("chat-messages");
