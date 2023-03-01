@@ -1,0 +1,49 @@
+**/.classpath
+**/.dockerignore
+**/.git
+**/.project
+**/.settings
+**/.toolstarget
+**/.vs
+**/*.*proj.user
+**/*.dbmdl
+**/*.jfm
+**/bin
+**/charts
+**/docker-compose*
+**/compose*
+**/Dockerfile*
+**/node_modules
+**/npm-debug.log
+**/obj
+**/secrets.dev.yaml
+**/values.dev.yaml
+
+# Exclude the REAMDE.md file
+README.md
+# Exclude the Dockerfile
+Dockerfile
+
+# Exclude the __pycache__ directory
+__pycache__
+
+# Exclude .pyc files
+*.pyc
+
+# Exclude the .gitignore file
+.gitignore
+
+# Exclude the .git directory
+.git
+
+# Exclude the venv directory
+venv
+
+# Exclude the LICENSE file
+LICENSE
+
+# Exclude the .vscode directory
+.vscode
+
+# Exclude the .python-version file
+.python-version
