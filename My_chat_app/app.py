@@ -29,26 +29,10 @@ manager = ConnectionManager()
 async def get(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 
-# @app.get("/")
-# async def get(request: Request):
-#     return templates.TemplateResponse("getname.html", {"request": request})
-
 @app.post("/chat")
 async def chat(request: Request, name: str = Form(...)):
-    # with open('client_data.csv', mode='a') as csv_file:
-    #     fieldnames = ['name', 'userAgent', 'language', 'platform', 'ipAddress', 'screenWidth', 'screenHeight', 'windowWidth', 'windowHeight']
-    #     writer = csv.DictWriter(csv_file, fieldnames=fieldnames, delimiter='|')
-    #     if csv_file.tell() == 0:
-    #         writer.writeheader()
-    #     if clientInfo["ipAddress"] == "":
-    #         clientInfo["ipAddress"] = request.client.host
-    #     writer.writerow(clientInfo)
-    # this = templates.TemplateResponse("chat.html", {"request": request, "name": clientInfo["name"]})
-    # name = clientinfo["name"]
-
     return templates.TemplateResponse("chat.html", {"request": request, "name": name })
     
-
 @app.websocket("/chat/{name}")
 async def websocket_endpoint(websocket: WebSocket, name: str):
     await manager.connect(websocket)
@@ -59,9 +43,3 @@ async def websocket_endpoint(websocket: WebSocket, name: str):
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast(f"{name} left the chat")
-
-
-
-# @app.post("/hello")
-# async def register(request: Request, name: str = Form(...)):
-#     return templates.TemplateResponse("helloname.html", {"request": request, "name": name})
