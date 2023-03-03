@@ -1,5 +1,6 @@
 {
     "configurations": [
+    
         {
             "name": "Docker: Python - Fastapi",
             "type": "docker",
@@ -14,6 +15,24 @@
                 ],
                 "projectType": "fastapi"
             }
+        },
+
+        {
+            "name": "Python: FastAPI",
+            "type": "python",
+            "request": "launch",
+            "cwd": "/home/salem/Bureau/fast_chat_app/My_Chat_app/My_chat_app",
+            "module": "uvicorn",
+            "args": [
+                "app:app",
+                "--reload",
+                "--port",
+                "8000",
+                "--debug",
+                "--log-level", 
+                "debug"
+            ]
         }
+           
     ]
 }

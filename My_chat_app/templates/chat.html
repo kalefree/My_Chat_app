@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Basic Chat App</title>
+    <title>Chat App</title>
 </head>
 <body>
-    <h1>Welcome to the Basic Chat App</h1>
+    <h1>The Basic Chat App</h1>
+    <h2>Welcome to the chat room!</h2>
     <div id="chat-container">
-        <div id="chat-messages"></div>
+        <ul id="chat-messages"></ul>
         <form id="chat-form">
             <input type="text" id="chat-input">
             <button type="submit">Send</button>
@@ -14,8 +15,8 @@
     </div>
 
     <script>
-        var client_id = "{{ client_id }}";
-        var socket = new WebSocket("ws://" + window.location.host + "/" + client_id);
+        var client_id = "{{ name }}";
+        var socket = new WebSocket("ws://" + window.location.host + "/chat/" + client_id);
         var chatForm = document.getElementById("chat-form");
         var chatInput = document.getElementById("chat-input");
         var chatMessages = document.getElementById("chat-messages");
