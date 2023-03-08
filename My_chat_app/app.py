@@ -1,12 +1,19 @@
 from fastapi import FastAPI, Request, Form, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
+from typing import Optional
 from uuid import uuid4
 import csv
+import openai
+openai.api_key = "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"
+import time
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 connected_clients = {}
+
+
+add_AI_agent = False
 
 class ConnectionManager:
     def __init__(self):
@@ -30,9 +37,12 @@ async def get(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 
 @app.post("/chat")
-async def chat(request: Request, name: str = Form(...)):
-    return templates.TemplateResponse("chat.html", {"request": request, "name": name })
-    
+async def chat(request: Request, name: str = Form(...), ai: Optional[str] = Form(None)):
+    if ai == "on" : 
+        add_AI_agent = True
+    return templates.TemplateResponse("chat.html", {"request": request, "name": name})
+ 
+
 @app.websocket("/chat/{name}")
 async def websocket_endpoint(websocket: WebSocket, name: str):
     await manager.connect(websocket)
@@ -40,6 +50,20 @@ async def websocket_endpoint(websocket: WebSocket, name: str):
         while True:
             data = await websocket.receive_text()
             await manager.broadcast(f"{name}: {data}")
+            if add_AI_agent :
+                prompt = data.strip()
+                response = openai.Completion.create(
+                    engine="davinci",
+                    prompt=prompt,
+                    max_tokens=60,
+                    n=1,
+                    stop=None,
+                    temperature=0.5,
+                )
+                ai_chat_response = response.choices[0].text.strip()
+                time.sleep(1)
+                await websocket.broadcast(f"AI: {ai_chat_response}")    
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast(f"{name} left the chat")
+
