@@ -3,10 +3,13 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from typing import Optional
 from uuid import uuid4
+from secrets import openai_token
 import csv
 import openai
-openai.api_key = "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"
 import time
+
+openai.api_key = openai_token
+
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
