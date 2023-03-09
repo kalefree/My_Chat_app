@@ -43,6 +43,9 @@ async def get(request: Request):
 async def chat(request: Request, name: str = Form(...), ai: Optional[str] = Form(None)):
     if ai == "on" : 
         add_AI_agent = True
+    else : 
+        add_AI_agent = False
+        
     return templates.TemplateResponse("chat.html", {"request": request, "name": name})
  
 
